@@ -1,0 +1,27 @@
+.title_main{
+    text-shadow: 4px 4px 12px #0000F0;
+}
+.new-post{
+    padding: 16px 0;
+    border-bottom: 1px solid;
+}
+
+.new-post header,
+.post header{
+    margin-bottom: 20px;
+}
+
+.post {
+    padding-left: 10px;
+    border-left: 3px solid #b91d19;
+    margin-bottom: 30px;
+}
+
+.info{
+    color: #1c7430;
+    font-style: italic;
+}
+p{
+    font-size: 18px;
+    font-family: "Calibri Light";
+}

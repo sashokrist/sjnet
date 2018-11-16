@@ -8,12 +8,14 @@
 
 .new-post header,
 .post header{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .post {
     padding-left: 10px;
-    border-left: 3px solid #b91d19;
+    padding-right: 10px;
+    border-left: 3px solid #0000F0;
+    border-right: 3px solid #0000F0;
     margin-bottom: 30px;
 }
 

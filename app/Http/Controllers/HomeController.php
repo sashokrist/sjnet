@@ -23,9 +23,6 @@ class HomeController extends Controller
     {
         return view('profile');
     }
-    public function getDashboard(){
 
-        return view('/profile');
-    }
 
 }

@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/profile', [
-    'uses' => 'HomeController@getDashboard',
+    'uses' => 'PostController@getDashboard',
     'as' => 'profile'
 ]);
 
@@ -27,4 +27,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/createpost', [
     'uses' => 'PostController@postCreatePost',
     'as' => 'post.create'
+]);
+
+Route::get('/delete-post/{post_id}', [
+    'uses' => 'PostController@getDelete',
+    'as' => 'post.delete'
 ]);

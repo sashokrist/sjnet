@@ -3,6 +3,7 @@
     SJ NET
     @endsection
 @section('content')
+@include('includes.message-block')
     <div class="text-center">
         <div class="col-12">
             <div class="card">
@@ -35,32 +36,20 @@
         <section class="row new-post justify-content-center">
             <div class="col-8">
                 <header><h3>What other people say?</h3></header>
-                <article class="post">
-                    <p>This post is submit by laravel default engine and will repeat many many times
-                        This post is submit by laravel default engine and will repeat many many times</p>
-                    <div class="info">
-                        posted by Sasho on 12 Nov 2018
-                    </div>
-                    <div class="interaction">
-                        <a href="#">Like</a>
-                        <a href="#">DisLike</a>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </div>
-                </article>
-                <article class="post">
-                    <p>This post is submit by laravel default engine and will repeat many many times
-                        This post is submit by laravel default engine and will repeat many many times</p>
-                    <div class="info">
-                        posted by Sasho on 12 Nov 2018
-                    </div>
-                    <div class="interaction">
-                        <a href="#">Like</a>
-                        <a href="#">DisLike</a>
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
-                    </div>
-                </article>
+                @foreach($posts as $post)
+                    <article class="post">
+                        <p>{{ $post->body }}</p>
+                        <div class="info">
+                            posted by {{ $post->user->name }} on {{ $post->created_at }}
+                        </div>
+                        <div class="interaction">
+                            <a href="#">Like</a>
+                            <a href="#">DisLike</a>
+                            <a href="#">Edit</a>
+                            <a href="{{ route('post.delete', ['post_id' => $post->id]) }}">Delete</a>
+                        </div>
+                    </article>
+                    @endforeach
             </div>
 
         </section>

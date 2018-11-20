@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Auth;
 
 class PostController extends Controller
 {
     public function getDashboard(){
         //$post = Post::all()->sortBy('id');
-        $post = Post::orderByDesc('id')->get();
+        $post = Post::orderByDesc('created_at')->get();
         return view('/profile', ['posts' => $post]);
     }
     public function postCreatePost(Request $request){

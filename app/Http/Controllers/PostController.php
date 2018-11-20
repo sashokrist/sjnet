@@ -10,7 +10,7 @@ class PostController extends Controller
 {
     public function getDashboard(){
         //$post = Post::all()->sortBy('id');
-        $post = Post::orderByDesc('created_at')->get();
+        $post = Post::orderByDesc('updated_at')->get();
         return view('/profile', ['posts' => $post]);
     }
     public function postCreatePost(Request $request){
@@ -29,5 +29,19 @@ class PostController extends Controller
         $post = Post::where('id', $post_id);
         $post->delete();
         return redirect()->route('profile');
+    }
+
+    public function postEditPost(Request $request)
+    {
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+        $post = Post::find($request['postId']);
+        /*if (Auth::user() != $post->user) {
+            return redirect()->back();
+        }*/
+        $post->body = $request['body'];
+        $post->update();
+        return response()->json(['new_body' => $post->body], 200);
     }
 }

@@ -38,7 +38,7 @@
             <div class="col-8">
                 <header><h3><i class="far fa-comment-dots"></i> What other people say?</h3></header>
                 @foreach($posts as $post)
-                    <article class="post">
+                    <article class="post" data-postid="{{ $post->id }}">
                         <p>{{ $post->body }}</p>
                         <div class="info">
                             posted by {{ $post->user->name }} on {{ $post->created_at }}

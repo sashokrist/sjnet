@@ -20,6 +20,21 @@ Route::get('/profile', [
     'as' => 'profile'
 ]);
 
+Route::get('/account', [
+    'uses' => 'HomeController@getAccount',
+    'as' => 'account'
+]);
+
+Route::post('/upateaccount', [
+    'uses' => 'HomeController@postSaveAccount',
+    'as' => 'account.save'
+]);
+
+Route::get('/userimage/{filename}', [
+    'uses' => 'HomeController@getUserImage',
+    'as' => 'account.image'
+]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

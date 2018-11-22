@@ -18,6 +18,7 @@ $('#modal-save').on('click', function () {
         .done(function (msg) {
             $(postBodyElement).text(msg['new_body']);
             $('#edit-modal').modal('hide');
+            location.reload();
            console.log(msg['message']);
         });
 });

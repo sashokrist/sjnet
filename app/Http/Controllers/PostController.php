@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Auth;
 
+
 class PostController extends Controller
 {
     public function getDashboard(){
@@ -44,4 +45,6 @@ class PostController extends Controller
         $post->update();
         return response()->json(['new_body' => $post->body], 200);
     }
+
+
 }

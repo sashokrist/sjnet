@@ -16,8 +16,19 @@ class PostController extends Controller
     }
     public function postCreatePost(Request $request){
 
+        $image = $request->file('image');
+        $path = public_path(). '/images/';
+        $filename=NULL;
+        if(empty($image)){
+            $filename="stress.jpg";
+        }else{
+            $filename = time() . '.' . $image->getClientOriginalExtension();
+            $image->move($path, $filename);
+        }
+
         $post = new Post();
         $post->body = $request['body'];
+        $post->images=$filename;
         $request->user()->posts()->save($post);
         $message = 'There was an error';
         if($request->user()->posts()->save($post)){

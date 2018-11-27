@@ -5,9 +5,10 @@
 @endsection
 
 @section('content')
-    <section class="row new-post">
+    <section class="justify-content-center row new-post">
         <div class="col-md-6 col-md-offset-3">
             <header><h3>Your Account</h3></header>
+            <a class="btn btn-primary btn-lg" href="{{ url('/profile') }}">Dashboard</a>
             <form action="{{ route('account.save') }}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="first_name">First Name</label>
@@ -21,13 +22,13 @@
                 <input type="hidden" value="{{ Session::token() }}" name="_token">
             </form>
         </div>
-    </section>
-    <section class="row new-post">
-        <div class="col-md-6 col-md-offset-3">
-            <img src="{{ route('account.image', ['filename' => $user->name . '-' . $user->id . '.jpg']) }}" alt="" class="img-responsive">
-        </div>
-    </section>
-    @if (Storage::disk('local')->has($user->name . '-' . $user->id . '.jpg'))
+        @if (Storage::disk('local')->has($user->name . '-' . $user->id . '.jpg'))
+            <section class="row new-post">
+                <div class="col-md-6 col-md-offset-3">
+                    <img src="{{ route('account.image', ['filename' => $user->name . '-' . $user->id . '.jpg']) }}" alt="" class="img-responsive img-profile">
+                </div>
+                @endif
+            </section>
 
-    @endif
+    </section>
 @endsection

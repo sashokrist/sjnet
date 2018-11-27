@@ -5,6 +5,7 @@
 @section('content')
 @include('includes.message-block')
     <div class="text-center">
+        @if(Auth::user())
         <div class="col-12">
             <div class="card">
 
@@ -14,19 +15,46 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                        <h3>Welcome {{  Auth::user()->name  }}</h3>
-                    <h3>You are logged in!  | <i class="far fa-envelope"></i> {{ Auth::user()->email }}</h3>
-
+                        <div class="row">
+                            <div class="col-sm-2 "> </div>
+                            <div class="col-sm-8 text-center">
+                                <h3>Welcome {{  Auth::user()->name  }}</h3>
+                            </div>
+                            <div class="col-sm-2">
+                                @if (Storage::disk('local')->has(Auth::user()->name . '-' . Auth::user()->id . '.jpg'))
+                                    <section class="row new-post">
+                                        <div class="col-md-6 col-md-offset-3">
+                                            <img src="{{ route('account.image', ['filename' => Auth::user()->name . '-' . Auth::user()->id . '.jpg']) }}" alt="" class="img-responsive img-profile">
+                                        </div>
+                                @endif
+                            </div>
+                    </div>
+                        <div class="row">
+                            <div class="col-sm-2 "> </div>
+                            <div class="col-sm-8 text-center">
+                                <h3>You are logged in!  | <i class="far fa-envelope"></i> {{ Auth::user()->email }} |</h3>
+                            </div>
+                            <div class="col-sm-2 " style="padding-top: 10px;">
+                                @if( Auth::user() )
+                                    <a class="btn btn-primary" href="{{ route('account') }}"> <i class="far fa-user-circle"></i> Account</a>
+                                @endif
+                            </div>
+                        </div>
                 </div>
             </div>
+            @else
+                <button href="{{ route('login') }}" class="btn btn-danger btn-lg button">Login</button>
+            @endif
         </div>
         <section class="row new-post justify-content-center">
             <div class="col-8">
                 <header><h3><i class="far fa-comment"></i> What do you have to say?</h3></header>
-                <form action="{{ route('post.create') }} " method="post">
+                <form action="{{ route('post.create') }} " method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <textarea class="form-control" name="body" id="new-post" rows="8"
                                   placeholder="enter your post here"></textarea>
+
+                        <input type="file" name="image" id="image" class="form-control" >
                     </div>
                     <button type="submit" class="btn btn-primary">Create Post</button>
                     <input type="hidden" value="{{ Session::token() }}" name="_token">
@@ -37,9 +65,19 @@
         <section class="row new-post justify-content-center">
             <div class="col-8">
                 <header><h3><i class="far fa-comment-dots"></i> What other people say?</h3></header>
+                <p>number of posts: {{ $posts->count() }}</p>
                 @foreach($posts as $post)
                     <article class="post" data-postid="{{ $post->id }}">
-                        <p>{{ $post->body }}</p>
+                        <div class="row justify-content-center">
+                            <div class="col-sm-4">
+                                <p> <img src="images/{{ $post->images}}" width="100px;" height="100px;"/> <br></p>
+                            </div>
+                            <div class="col-sm-8">
+                                <p>{{ $post->body }}</p>
+                            </div>
+                        </div>
+
+
                         <div class="info">
                             posted by {{ $post->user->name }} on {{ $post->created_at }}
                         </div>
@@ -53,6 +91,7 @@
                                 @endif
                        {{--data-target="#edit-modal" data-toggle="modal"--}}
                         </div>
+
                     </article>
                     @endforeach
             </div>
@@ -81,7 +120,7 @@
         </div><!-- /.modal -->
         <script>
             var token = '{{ Session::token() }}';
-            var url = '{{ route('edit') }}';
+            var urlEdit = '{{ route('edit') }}';
         </script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </div>
